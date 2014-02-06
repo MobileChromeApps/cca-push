@@ -1,7 +1,7 @@
 {
   "name": "cca-push",
   "author": "The Chrome Team",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Send a Chrome App to the Chrome ADT on a mobile device",
   "preferGlobal": "true",
   "keywords": [
