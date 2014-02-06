@@ -13,6 +13,7 @@
   "bin": {
     "cca-push": "src/push.js"
   },
+  "main": "./src/push.js",
   "license": "Apache version 2.0",
   "repository": {
     "type": "git",
