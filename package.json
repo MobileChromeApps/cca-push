@@ -21,11 +21,8 @@
   },
   "dependencies": {
     "node-zip": "~1",
-    "request": ">=2.34"
+    "request": "~2.34"
   },
-  "bundledDependencies": [
-    "request"
-  ],
   "files": [
     "README.md",
     "src"
