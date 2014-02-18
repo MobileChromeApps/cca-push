@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "node-zip": "~1",
-    "request": "git://github.com/MobileChromeApps/request.git"
+    "request": ">=2.34"
   },
   "bundledDependencies": [
     "request"
