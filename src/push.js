@@ -134,6 +134,10 @@ module.exports.push = function(dir, target, cb) {
 
 
 function main() {
+  if (process.argv.length < 4) {
+    console.log('Usage: cca-push path/to/app IP_ADDRESS');
+    process.exit(1);
+  }
   var dir = process.argv[2];
   var target = process.argv[3];
 
