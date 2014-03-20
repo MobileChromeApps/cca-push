@@ -1,7 +1,7 @@
 {
   "name": "cca-push",
   "author": "The Chrome Team",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "Send a Chrome App to the Chrome ADT on a mobile device",
   "preferGlobal": "true",
   "keywords": [
@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "node-zip": "~1",
-    "request": "~2.34"
+    "request": "~2.34",
+    "nopt": "~2.2"
   },
   "files": [
     "README.md",

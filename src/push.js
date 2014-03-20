@@ -23,6 +23,7 @@ var fs = require('fs'),
     path = require('path'),
     Zip = require('node-zip'),
     request = require('request'),
+    nopt = require('nopt'),
     url = require('url');
 
 // Returns a promise for the manifest contents.
@@ -71,7 +72,7 @@ function zipDir(zip, dir) {
 
 
 // Takes a Node-style callback: function(err).
-module.exports.push = function(dir, target, cb) {
+exports.push = function(target, dir, cb) {
   // Fetch the manifest so we can get the app's name for use in the push.
   var manifestPath;
   if (path.basename(dir) == 'manifest.json') {
@@ -109,41 +110,81 @@ module.exports.push = function(dir, target, cb) {
   }
   zipContents.copy(crxContents, 16);
 
+  var req = doPost(target, 'push', { type: 'crx', name: appName });
+  req.form().append("file", crxContents, { filename: 'push.crx', contentType: 'application/octet-stream' });
+}
+
+function doPost(target, action, queryParams, cb) {
   // Send the HTTP request. crxContents is a Node Buffer, which is the payload.
   // Prepare the form data for upload.
   var uri = url.format({
     protocol: 'http',
     hostname: target,
     port: 2424,
-    pathname: '/push',
-    query: { type: 'crx', name: appName }
+    pathname: '/' + action,
+    query: queryParams
   });
 
   var req = request.post({
     uri: uri,
     method: 'POST'
   }, function(err, res, body) {
-    if (err) cb(err);
-    else {
+    if (err) {
+      cb(err);
+    } else {
       console.log(body);
       cb(null);
     }
   });
-  req.form().append("file", crxContents, { filename: 'push.crx', contentType: 'application/octet-stream' });
+  return req;
 };
 
+exports.menu = function(target, cb) {
+  doPost(target, 'menu', null, cb);
+};
+
+exports.eval = function(target, someJs, cb) {
+  doPost(target, 'exec', { code: someJs }, cb);
+};
+
+function parseArgs(argv) {
+    var opts = {
+      'path': path,
+      'help': Boolean,
+      'menu': Boolean,
+      'eval': String,
+      'target': String
+    };
+    var ret = nopt(opts, null, argv);
+    if (!ret.target) {
+      ret.target = 'localhost';
+    }
+    if (!ret.path && !ret.menu && !ret.eval) {
+      usage();
+    }
+    return ret;
+}
+
+function usage() {
+  console.log('Usage: cca-push --path=path/to/chrome_app --target=IP_ADDRESS');
+  console.log('Usage: cca-push --menu');
+  console.log('Usage: cca-push --eval "alert(1)"');
+  process.exit(1);
+}
 
 function main() {
-  if (process.argv.length < 4) {
-    console.log('Usage: cca-push path/to/app IP_ADDRESS');
-    process.exit(1);
-  }
-  var dir = process.argv[2];
-  var target = process.argv[3];
+  var args = parseArgs(process.argv);
 
-  module.exports.push(dir, target, function(err) {
+  function cb(err) {
     if (err) console.error(err);
-  });
+  }
+  if (args.path) {
+    exports.push(args.target, args.path, cb);
+  } else if (args.menu) {
+    exports.menu(args.target, cb);
+  } else if (args.eval) {
+    exports.eval(args.target, args.eval, cb);
+  }
 }
 
 if (require.main === module) {
