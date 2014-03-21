@@ -110,7 +110,7 @@ exports.push = function(target, dir, cb) {
   }
   zipContents.copy(crxContents, 16);
 
-  var req = doPost(target, 'push', { type: 'crx', name: appName });
+  var req = doPost(target, 'push', { type: 'crx', name: appName }, cb);
   req.form().append("file", crxContents, { filename: 'push.crx', contentType: 'application/octet-stream' });
 }
 
