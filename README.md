@@ -19,6 +19,8 @@ The app should launch on your device. You can push the app as many times as you 
 
 This is unfortunately troublesome. If you're on the same Wi-fi network, great! If not, you can use `adb` to set up a port forwarding between your desktop and an Android device, and then push to that local port.
 
+    adb forward tcp:2424 tcp:2424
+
 ## Future Improvements
 
 - We hope in the future to have more sophisticated ways of locating and sending the CRX file to your device.
