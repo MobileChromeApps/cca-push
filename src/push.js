@@ -169,6 +169,9 @@ function usage() {
   console.log('Usage: cca-push --path=path/to/chrome_app --target=IP_ADDRESS');
   console.log('Usage: cca-push --menu');
   console.log('Usage: cca-push --eval "alert(1)"');
+  console.log();
+  console.log('--target defaults to localhost');
+  console.log('To deploy to Android over USB, use: adb forward tcp:2424 tcp:2424');
   process.exit(1);
 }
 
