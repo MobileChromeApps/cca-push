@@ -142,9 +142,8 @@ function doRequest(method, target, action, queryParams, cb, contentLength) {
   if (typeof contentLength != 'undefined') {
       headers['Content-Length'] = String(contentLength);
   }
-  var req = request.post({
+  var req = request[method.toLowerCase()]({
     uri: uri,
-    method: method,
     headers: headers
   }, cb);
   return req;
