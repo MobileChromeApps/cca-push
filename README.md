@@ -1,27 +1,9 @@
-# Push a Chrome App to a mobile device
+# Deprecated!
 
-This is a small, standalone, Node.js-powered tool that can bundle a Chrome App into a `.crx` file, and send it to the [Chrome App Developer Tool](https://github.com/MobileChromeApps/harness) running on a mobile device.
+This module has been superseded.
 
-## Installation
+HTTP client module now lives here: https://github.com/MobileChromeApps/chrome-app-developer-tool/tree/master/harness-push/node_modules/chrome-app-developer-tool-client.
 
-    npm install -g cca-push
+Toy CLI module now lives here: https://github.com/MobileChromeApps/chrome-app-developer-tool/tree/master/harness-push.
 
-## Usage
-
-- First, (install and) launch the Chrome ADT app on your device.
-- Press the "Start listening" button in the app.
-- Run `cca-push path/to/manifest.json <IP address>`
-    - You can provide either the path to the `manifest.json` file, or its containing directory.
-
-The app should launch on your device. You can push the app as many times as you like, even while the app is running, and it will re-launch with the new version.
-
-## Getting a connection to your device
-
-This is unfortunately troublesome. If you're on the same Wi-fi network, great! If not, you can use `adb` to set up a port forwarding between your desktop and an Android device, and then push to that local port.
-
-    adb forward tcp:2424 tcp:2424
-
-## Future Improvements
-
-- We hope in the future to have more sophisticated ways of locating and sending the CRX file to your device.
-
+Main CLI client is built into [cca](https://www.npmjs.org/package/cca).

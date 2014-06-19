@@ -1,15 +1,10 @@
 {
   "name": "cca-push",
   "author": "The Chrome Team",
-  "version": "1.1.0",
-  "description": "Send a Chrome App to the Chrome ADT on a mobile device",
+  "version": "1.1.1",
+  "description": "Deprecated. See README.md",
   "preferGlobal": "true",
-  "keywords": [
-    "cordova",
-    "chrome",
-    "mobile",
-    "apps"
-  ],
+  "keywords": [],
   "bin": {
     "cca-push": "src/push.js"
   },
